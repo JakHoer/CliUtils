@@ -108,7 +108,6 @@ int Cli_clearLine(){
 
 int Cli_write(char *str){
 	return write(str);
-	return 0;
 }
 
 int Cli_print(const char* format, ...){
@@ -162,12 +161,12 @@ int Cli_getLine(char *buffer, int bufSize){
 	int c;
 	int len = 0;
 	while((c = getchar()) != '\n' && c != '\r'){
-		if(buffer && len < bufSize-1) buffer[len++] = c;
+		if(buffer && len < bufSize-1) buffer[len] = c;
+		len++;
 	}
 	if(buffer) buffer[len] = 0;
 	return len;
 }
-
 
 int Cli_hideCursor(){
 	write("\e[?25l");
