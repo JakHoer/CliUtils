@@ -1,0 +1,5 @@
+[Dd]ebug/
+[Bb]in/
+[Tt]est/
+.vscode/
+.gdb
