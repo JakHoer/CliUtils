@@ -10,9 +10,5 @@ all: $(BIN)
 %.o: src/%.c
 	gcc -c $(CFLAGS) -Iinclude/ $< -o bin/$@
 
-clean:
-	rm -f $(patsubst ($(wildcard bin/*.c) $(wildcard bin/*.h)), , $(wildcard bin/*))
-	rm -f test/test.exe
-
-test:
-	gcc test/*.c $(CFLAGS) -Iinclude/ -Lbin -lCliUtils -o test/test.exe
+debug:
+	$(MAKE) CFLAGS=-g
