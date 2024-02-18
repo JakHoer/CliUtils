@@ -71,8 +71,6 @@ int cursorHidden; // Needed because some calls besides "hide" also hide the curs
 
 int Cli_init(){
 	int error;
-	cursorHidden = 0;
-	Cli_showCursor();
 	#if defined(WIN32)
 		consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 		error = GetConsoleMode(consoleHandle, &consoleMode);
@@ -80,12 +78,16 @@ int Cli_init(){
 		error = SetConsoleMode(consoleHandle, ENABLE_VIRTUAL_TERMINAL_PROCESSING | ENABLE_PROCESSED_OUTPUT);
 		if(!error) return -1;
 	#elif defined(__unix__)
-		tcgetattr(STDIN_FILENO, &initialAttr);
-		tcgetattr(STDIN_FILENO, &canonAttr);
-		tcgetattr(STDIN_FILENO, &nonCanonAttr);
+		error = tcgetattr(STDIN_FILENO, &initialAttr);
+		if(error) return -1;
+		canonAttr = initialAttr;
+		nonCanonAttr = initialAttr;
 		canonAttr.c_lflag |= ICANON|ECHO;
 		nonCanonAttr.c_lflag &= ~(ICANON|ECHO);
 	#endif
+
+	cursorHidden = 0;
+	Cli_showCursor();
 	return 0;
 }
 
