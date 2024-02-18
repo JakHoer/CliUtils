@@ -6,8 +6,11 @@ override CFLAGS := -Wall $(CFLAGS)
 .PHONY: all clean test
 all: $(BIN)
 	ar rcs bin/libCliUtils.a $(patsubst %,bin/%,$(BIN))
-	
-%.o: src/%.c
+
+dir:
+	mkdir bin
+
+%.o: src/%.c | dir
 	gcc -c $(CFLAGS) -Iinclude/ $< -o bin/$@
 
 debug:
