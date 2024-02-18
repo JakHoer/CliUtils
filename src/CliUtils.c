@@ -22,7 +22,7 @@
 	SOFTWARE.
 */
 
-#include "CliUtils/CliUtils.h"
+#include "CliUtils.h"
 
 #include <stdio.h>
 #include <stdlib.h>
