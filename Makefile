@@ -8,7 +8,7 @@ all: $(BIN)
 	ar rcs bin/libCliUtils.a $(patsubst %,bin/%,$(BIN))
 
 dir:
-	mkdir bin
+	mkdir -p bin
 
 %.o: src/%.c | dir
 	gcc -c $(CFLAGS) -Iinclude/ $< -o bin/$@
